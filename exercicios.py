@@ -4,7 +4,6 @@
 
 from pickle import FALSE, TRUE
 from random import randint
-from urllib.parse import _NetlocResultMixinStr
 
 
 print('ex 1')
