@@ -48,31 +48,42 @@ def extrair_inteiro(texto):
 		return 0
 
 driver = webdriver.Chrome()
-driver.get('https://google.com')
+driver.get('https://ourworldindata.org/energy-mix#energy-mix-what-sources-do-we-get-our-energy-from')
 
-input = WebDriverWait(driver, 20).until(
-	EC.presence_of_element_located((By.CSS_SELECTOR, 'input[name="q"]'))
+botao_cookie = WebDriverWait(driver, 20).until(
+	EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[data-track-note="cookie-notice"]'))
 )
 
-input.send_keys('gatos fofos')
-input.send_keys(Keys.RETURN)
+# Às vezes o botão não era clicável de verdade logo de primeira 😅 ...
+time.sleep(2)
 
-link_imagens = WebDriverWait(driver, 20).until(
-	EC.element_to_be_clickable((By.XPATH, "//a[text()='Imagens']"))
-)
-link_imagens.click()
+botao_cookie.click()
 
-imagens = WebDriverWait(driver, 20).until(
-	EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'img.rg_i'))
+botoes_tabela = WebDriverWait(driver, 20).until(
+	EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'a[data-track-note="chart-click-table"]'))
 )
+
+botoes_tabela[1].click()
+
+corpo_tabela = WebDriverWait(driver, 20).until(
+	EC.presence_of_element_located((By.CSS_SELECTOR, 'table.data-table > tbody'))
+)
+
+linhas = corpo_tabela.find_elements_by_tag_name('tr')
 
 dados = []
 
-for imagem in imagens:
+for linha in linhas:
+	colunas = linha.find_elements_by_tag_name('td')
+
+	nome = colunas[0].text
+	valor1900 = colunas[1].text
+	valor2019 = colunas[2].text
+
 	dados.append({
-		'descr': imagem.get_attribute('alt'),
-		'largura': int(imagem.get_attribute('width')),
-		'altura': int(imagem.get_attribute('height'))
+		'nome': nome,
+		'valor1900': extrair_inteiro(valor1900),
+		'valor2019': extrair_inteiro(valor2019)
 	})
 
 print(dados)
