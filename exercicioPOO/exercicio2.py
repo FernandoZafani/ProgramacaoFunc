@@ -2,14 +2,18 @@ class Contato:
     def __init__(self, nome='', numero=''):
         self.nome = nome
         self.numero = numero
+
+    def __str__(self):
+        return f"Nome: {self.nome}, Numero: {self.numero}"
+    
         
 class Agenda(Contato):
-    def __init__(self,contatos):
-        self.contatos= contatos
+    def __init__(self,lista):
+        self.lista= lista
 
     def mostrar(self):
-        for number in range (len(self.contatos)):
-            print(self.nome[number])
+        for number in range (len(self.lista)):
+            print(self.lista[number])
     
 def main():
     con1 = Contato('Fefe','11974177977')
