@@ -79,10 +79,17 @@ while acertou == FALSE :
 #exercicio 9
 print('ex 9')
 
-x= int(input('Digite: '))
-lista = [0, 1]
+n = int(input())
+ultimo = n
+penultimo = n
+k = 0
+fibo = [n, n]
 
-for number in range (2, 9+x):
-    lista.append(lista[number -1] + lista[number - 2])
-
-print(lista[x-1:])
+count = 0
+while count < (10-2):
+    k = ultimo + penultimo
+    penultimo = ultimo
+    ultimo = k
+    fibo.append(k)
+    count += 1
+print(fibo)

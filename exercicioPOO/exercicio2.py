@@ -5,7 +5,6 @@ class Contato:
 
     def __str__(self):
         return f"Nome: {self.nome}, Numero: {self.numero}"
-    
         
 class Agenda(Contato):
     def __init__(self,lista):
