@@ -19,7 +19,10 @@ CREATE TABLE IF NOT EXISTS Vaccine(
     VaccineName TEXT NOT NULL,
     DoseDate DATETIME NOT NULL,
     DoseNumber INTEGER NOT NULL,
-    vaccineType TEXT NOT NULL,
+    VaccineType TEXT NOT NULL,
     FOREIGN KEY (PatientID) references Patient
 )
 """)
+
+conn.commit()
+conn.close()
