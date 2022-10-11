@@ -1,7 +1,3 @@
-from faulthandler import cancel_dump_traceback_later
-from sys import dont_write_bytecode
-
-
 def multiplicar(x):
     def calcular(y):
         return y * x
